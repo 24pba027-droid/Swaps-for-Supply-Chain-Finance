@@ -108,14 +108,14 @@ If Docker is not running, the system automatically falls back to the hosted AWS 
 
 ## Client-Side Setup
 
-### Step 1 — Clone the Repository
+### Step 2 — Clone the Repository
 
 ```bash
 git clone <https://github.com/24pba027-droid/Swaps-for-Supply-Chain-Finance>
 cd Swaps-for-Supply-Chain-Finance
 ```
 
-### Step 2 — Install Dependencies & Build the MCP Server
+### Step 3 — Install Dependencies & Build the MCP Server
 
 ```bash
 cd Backend
@@ -125,7 +125,7 @@ npm run build
 
 This compiles `src/mcp-server.ts` → `dist/mcp-server.js` using TypeScript (`tsc`).
 
-### Step 3 — Add the MCP Server to Claude Desktop
+### Step 4 — Add the MCP Server to Claude Desktop
 
 Open your Claude Desktop config file:
 
@@ -152,10 +152,10 @@ Add the `generalRisk` server entry:
 
 Replace `<path-to-your-clone>` with your actual clone location.
 
-### Step 3 — Restart Claude Desktop
+### Step 5 — Restart Claude Desktop
 Close and reopen Claude Desktop. The `generalRisk` MCP server will start automatically.
 
-### Step 4 — Verify the Tools Are Available
+### Step 6 — Verify the Tools Are Available
 In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see the server named `generalRisk` with 7 tools:
 
 | Tool | Purpose |
@@ -170,7 +170,7 @@ In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see t
 
 When Claude calls any tool for the first time, you will see a permission prompt — click **Allow** (or **Allow for this chat**) to proceed.
 
-### Step 5 — Run a Simulation
+### Step 7 — Run a Simulation
 Open Claude Desktop, upload your simulation JSON file (e.g. `SWAPS-1LOAN-WHAT-IF-DEMO.json`), then paste this prompt:
 
 ```
