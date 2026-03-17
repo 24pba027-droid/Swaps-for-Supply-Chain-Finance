@@ -106,13 +106,33 @@ This batch file spins up all the required ACTUS Docker services (Risk Server on 
 
 If Docker is not running, the system automatically falls back to the hosted AWS server at `34.203.247.32`.
 
-### Step 2 — Add the MCP Server to Claude Desktop
+## Client-Side Setup
+
+### Step 1 — Clone the Repository
+
+```bash
+git clone <https://github.com/24pba027-droid/Swaps-for-Supply-Chain-Finance>
+cd Swaps-for-Supply-Chain-Finance
+```
+
+### Step 2 — Install Dependencies & Build the MCP Server
+
+```bash
+cd Backend
+npm install
+npm run build
+```
+
+This compiles `src/mcp-server.ts` → `dist/mcp-server.js` using TypeScript (`tsc`).
+
+### Step 3 — Add the MCP Server to Claude Desktop
+
 Open your Claude Desktop config file:
 
 | OS | Path |
-|----|------|
-| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
-| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+|---|---|
+| **Windows** | `%APPDATA%\Claude\claude_desktop_config.json` |
+| **macOS** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
 
 Add the `generalRisk` server entry:
 
@@ -122,8 +142,9 @@ Add the `generalRisk` server entry:
     "generalRisk": {
       "command": "node",
       "args": [
-        "<path-to-your-clone>\\ACTUS-DeFi-Treasury-Intelligence-ADTI-\\ADTI-interface\\Backend\\dist\\mcp-server.js"
+        "<path-to-your-clone>\\Swaps-for-Supply-Chain-Finance\\SWAPS-interface\\Backend\\dist\\mcp-server.js"
       ]
+      "cwd" : "<path-to-your-clone>\\Swaps-for-Supply-Chain-Finance\\SWAPS-interface\\Backend"
     }
   }
 }
@@ -132,10 +153,10 @@ Add the `generalRisk` server entry:
 Replace `<path-to-your-clone>` with your actual clone location.
 
 ### Step 3 — Restart Claude Desktop
-Close and reopen Claude Desktop. The `ACTUS-DeFi-Treasury-Intelligence-ADTI-` MCP server will start automatically.
+Close and reopen Claude Desktop. The `generalRisk` MCP server will start automatically.
 
 ### Step 4 — Verify the Tools Are Available
-In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see the server named `ACTUS-DeFi-Treasury-Intelligence-ADTI-` with 7 tools:
+In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see the server named `generalRisk` with 7 tools:
 
 | Tool | Purpose |
 |------|---------|
@@ -149,7 +170,7 @@ In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see t
 
 When Claude calls any tool for the first time, you will see a permission prompt — click **Allow** (or **Allow for this chat**) to proceed.
 
-### Step 5 — Run a What-If Simulation
+### Step 5 — Run a Simulation
 Open Claude Desktop, upload your simulation JSON file (e.g. `SWAPS-1LOAN-WHAT-IF-DEMO.json`), then paste this prompt:
 
 ```
@@ -166,12 +187,6 @@ produce the JSON response. Show me:
 - Compare and contrast the different hedging scenarios (A/B/C) 
   with total cost and swap recommendations
 ```
-
-### Step 6 — Read the Output
-Claude will generate:
-- Interactive charts (tariff rates, SOFR, LTV, cumulative costs)
-- A comparison table across Scenario A / B / C
-- A **Winner Analysis** (Scenario D) telling you which hedge saves the most
 
 ---
 
