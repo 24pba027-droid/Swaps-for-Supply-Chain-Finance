@@ -93,7 +93,7 @@ Higher σ = bigger tariff transmission into your loan costs. DRAPS uses GTAP 11 
 
 ## How to Run a Simulation
 
-### Step 1 — Prerequisites
+### Step 1 — Prerequisites (Start ACTUS Docker Services)
 Make sure **Docker Desktop** is open and running on your machine before proceeding.
 
 Then, clone the ACTUS Risk Extension repo and run the startup script:
@@ -106,10 +106,50 @@ This batch file spins up all the required ACTUS Docker services (Risk Server on 
 
 If Docker is not running, the system automatically falls back to the hosted AWS server at `34.203.247.32`.
 
-### Step 2 — Connect MCP Server to Claude Desktop
-Add `generalRisk` MCP server to your Claude Desktop config. Once connected, 7 tools become available in Claude chat.
+### Step 2 — Add the MCP Server to Claude Desktop
+Open your Claude Desktop config file:
 
-### Step 3 — Run a What-If Simulation
+| OS | Path |
+|----|------|
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+
+Add the `generalRisk` server entry:
+
+```json
+{
+  "mcpServers": {
+    "generalRisk": {
+      "command": "node",
+      "args": [
+        "<path-to-your-clone>\\ACTUS-DeFi-Treasury-Intelligence-ADTI-\\ADTI-interface\\Backend\\dist\\mcp-server.js"
+      ]
+    }
+  }
+}
+```
+
+Replace `<path-to-your-clone>` with your actual clone location.
+
+### Step 3 — Restart Claude Desktop
+Close and reopen Claude Desktop. The `ACTUS-DeFi-Treasury-Intelligence-ADTI-` MCP server will start automatically.
+
+### Step 4 — Verify the Tools Are Available
+In Claude Desktop, look for the MCP tools icon (hammer/wrench). You should see the server named `ACTUS-DeFi-Treasury-Intelligence-ADTI-` with 7 tools:
+
+| Tool | Purpose |
+|------|---------|
+| `run_simulation` | Execute ACTUS simulations (the main tool) |
+| `list_simulations` | Browse available collections by domain |
+| `load_simulation` | Load a specific collection file |
+| `verify_portfolio` | Check stablecoin portfolio compliance |
+| `get_threshold_presets` | Get EU MiCA / US GENIUS Act thresholds |
+| `list_sample_portfolios` | List sample portfolio files |
+| `load_sample_portfolio` | Load a sample portfolio |
+
+When Claude calls any tool for the first time, you will see a permission prompt — click **Allow** (or **Allow for this chat**) to proceed.
+
+### Step 5 — Run a What-If Simulation
 Open Claude Desktop, upload your simulation JSON file (e.g. `SWAPS-1LOAN-WHAT-IF-DEMO.json`), then paste this prompt:
 
 ```
@@ -127,7 +167,7 @@ produce the JSON response. Show me:
   with total cost and swap recommendations
 ```
 
-### Step 4 — Read the Output
+### Step 6 — Read the Output
 Claude will generate:
 - Interactive charts (tariff rates, SOFR, LTV, cumulative costs)
 - A comparison table across Scenario A / B / C
