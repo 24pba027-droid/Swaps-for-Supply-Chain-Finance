@@ -94,11 +94,16 @@ Higher σ = bigger tariff transmission into your loan costs. DRAPS uses GTAP 11 
 ## How to Run a Simulation
 
 ### Step 1 — Prerequisites
-Make sure you have the ACTUS engine running (Docker):
+Make sure **Docker Desktop** is open and running on your machine before proceeding.
+
+Then, clone the ACTUS Risk Extension repo and run the startup script:
 ```bash
-docker run -d -p 8082:8082 actus-risk-server
-docker run -d -p 8083:8083 actus-simulation-server
+git clone https://github.com/bala-0207/ACTUS-RISK-EXTENSION.git
+cd ACTUS-RISK-EXTENSION
+.\start-risk-actusservice-local.bat
 ```
+This batch file spins up all the required ACTUS Docker services (Risk Server on `:8082` and Simulation Server on `:8083`) automatically.
+
 If Docker is not running, the system automatically falls back to the hosted AWS server at `34.203.247.32`.
 
 ### Step 2 — Connect MCP Server to Claude Desktop
@@ -130,59 +135,6 @@ Claude will generate:
 
 ---
 
-## What's in This Repository
-
-```
-DRAPS/
-├── Backend/                    ← MCP server source code (TypeScript)
-│   ├── src/
-│   │   ├── index.ts            ← Server entry point
-│   │   ├── tools/              ← 7 simulation tools
-│   │   └── utils/              ← ACTUS client, JSON parser, fallback logic
-│   ├── collections/            ← 100+ pre-built simulation JSON files
-│   │   ├── supplychain-tariff/ ← DRAPS core scenarios (India, China, Mexico)
-│   │   ├── defi-liquidation-collateral/
-│   │   ├── hybrid-treasury/
-│   │   ├── stablecoin/
-│   │   └── dynamic-discounting/
-│   ├── config/                 ← Sample portfolios and test scenarios
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── Frontend/                   ← UI (if applicable)
-├── LegentvLEI/                 ← LEI verification module
-│
-├── SWAPS-1LOAN-WHAT-IF-DEMO.json   ← Demo simulation: India-US (tex/pha/oil)
-├── actus_defi_loan_simulator.html  ← Standalone DeFi simulator UI
-├── promts.md                       ← Saved prompt templates
-└── README.md                       ← This file
-```
-
----
-
-## What to Keep in Your GitHub Repository ✅
-
-**Keep these — they are YOUR work:**
-
-| File/Folder | Why keep it |
-|-------------|-------------|
-| `Backend/src/` | Your MCP server code |
-| `Backend/collections/supplychain-tariff/` | Your DRAPS simulation files |
-| `SWAPS-1LOAN-WHAT-IF-DEMO.json` | Your demo simulation |
-| `promts.md` | Your prompt templates |
-| `README.md` | This file! |
-| `package.json`, `tsconfig.json` | Needed to run the code |
-
-**Be careful with these:**
-
-| File/Folder | Note |
-|-------------|------|
-| `Backend/collections/` (other domains) | These belong to ChainAIM team — check with them |
-| `actus_defi_loan_simulator.html` | DeFi project — separate from DRAPS |
-| `LegentvLEI/` | Shared module — confirm ownership before pushing |
-
----
-
 ## Architecture
 
 ```
@@ -207,9 +159,6 @@ DRAPS/
 | Domain | What it models |
 |--------|---------------|
 | **Supply Chain Tariff** ← DRAPS | Tariff risk hedging for trade finance loans |
-| DeFi Liquidation | ETH collateral protection with BufferLTV |
-| Hybrid Treasury | BTC/ETH treasury with cash pool management |
-| Stablecoin | Reserve management, MiCA/GENIUS Act compliance |
 | Dynamic Discounting | Early settlement, factoring, invoice finance |
 
 ---
@@ -241,4 +190,3 @@ DRAPS/
 - SME-facing production interface
 
 ---
-
