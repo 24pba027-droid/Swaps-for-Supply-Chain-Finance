@@ -30,7 +30,13 @@ with total cost of loan, and compare Scenario A / B / C with swap recommendation
 
 5. Claude runs the simulation and shows you charts, tables, and the winner analysis instantly.
 
-> **Note:** The ACTUS simulation server needs to be running. If you get a connection error, the hosted AWS server at `34.203.247.32` is the fallback — it may need to be started by the team. Contact: [24pba027-droid on GitHub](https://github.com/24pba027-droid)
+>## OPTION A: 
+to get response from local host use these json files: 
+"<path-to-your-clone>\Swaps-for-Supply-Chain-Finance\SWAPS-interface\Frontend\DEMO-SWAPS\local\supplychain-tariff
+
+## OPTION B:
+if localhost doesnot work, check your hosted files in system 32 and also try 127.0.0.1
+"<path-to-your-clone>\Swaps-for-Supply-Chain-Finance\SWAPS-interface\Frontend\DEMO-SWAPS\hosted\supplychain-tariff"
 
 ---
 
@@ -236,5 +242,3 @@ DRAPS/
 
 ---
 
-*ACTUS-DRAPS · ACTUS Competition 2025 · Trade Finance Risk Innovation*  
-*Proprietary — ChainAIM / Asha*
